@@ -1,6 +1,6 @@
 {
   "name": "choo-persist",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Synchronize choo state with indexedDB",
   "main": "index.js",
   "scripts": {
