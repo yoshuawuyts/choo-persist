@@ -20,7 +20,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "document-ready": "^1.0.3",
     "explain-error": "^1.0.3",
     "global": "^4.3.0",
     "idb-wrapper": "^1.7.1",
