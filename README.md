@@ -2,6 +2,8 @@
 [![npm version][2]][3] [![build status][4]][5] [![test coverage][6]][7]
 [![downloads][8]][9] [![js-standard-style][10]][11]
 
+![choo-persist gif](./reload.gif)
+
 Synchronize [choo][choo] state with [indexedDB][mdn]. Does nothing in [browsers
 that don't support indexedDB][caniuse].
 
