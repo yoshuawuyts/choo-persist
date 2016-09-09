@@ -45,8 +45,7 @@ function persist (opts, cb) {
 // (obj) -> (obj, obj, obj, str, fn) -> null
 function createStateChange (db) {
   return function onStateChange (data, state, prev, caller, createSend) {
-    const stateCopy = xtend(state)
-    setState(db, stateCopy, function (err) {
+    setState(db, state, function (err) {
       if (err) {
         const send = createSend('choo-persist')
         send('error', err)
