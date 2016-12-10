@@ -18,6 +18,7 @@ function persist (opts, cb) {
   assert.equal(typeof cb, 'function', 'choo-persist: cb should be an function')
 
   const name = opts.name || 'app'
+  const filter = opts.filter || noop
   if (!window.indexedDB) return cb({})
 
   const db = new Idb({
@@ -32,7 +33,7 @@ function persist (opts, cb) {
     getState(db, function (err, state) {
       if (err) throw err
       cb({
-        onStateChange: createStateChange(db),
+        onStateChange: createStateChange(db, filter),
         wrapInitialState: function (appState) {
           return xtend(appState, state)
         }
@@ -43,8 +44,9 @@ function persist (opts, cb) {
 
 // persist stuff to the local database
 // (obj) -> (obj, obj, obj, str, fn) -> null
-function createStateChange (db) {
-  return function onStateChange (data, state, prev, caller, createSend) {
+function createStateChange (db, filter) {
+  return function onStateChange (state, data, prev, caller, createSend) {
+    if (filter) state = filter(state)
     setState(db, state, function (err) {
       if (err) {
         const send = createSend('choo-persist')
@@ -86,3 +88,5 @@ function setState (db, state, cb) {
     cb(newErr)
   }
 }
+
+function noop () {}

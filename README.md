@@ -28,6 +28,20 @@ persist((persist) => {
 Create a new `indexedDB` database instance, and call the callback with the
 plugin when done. Can take an optional first argument of options:
 - __opts.name:__ default `'app'`; provide a name for the indexedDB database
+- __opts.filter(state):__ modify the state that's about to be written to the
+  IndexedDB database. Useful to strip values that cannot be serialized to
+  IndexedDB.
+
+```js
+var xtend = require('xtend')
+var opts = {
+  filter: function (state) {
+    state = xtend(state) // clone the object
+    delete state.sadArrayFilledWithFunctions
+    return state
+  }
+}
+```
 
 ### plugin.onStateChange
 The plugin should be passed into `app.use()` directly. `onStateChange` listens
