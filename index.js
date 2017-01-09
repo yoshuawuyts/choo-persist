@@ -89,4 +89,6 @@ function setState (db, state, cb) {
   }
 }
 
-function noop () {}
+function noop (state) {
+  return state
+}
