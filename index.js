@@ -5,21 +5,29 @@ module.exports = persist
 function persist (opts) {
   opts = opts || {}
 
-  var name = opts.name || 'choo-perist'
+  var name = opts.name || 'choo-persist'
   var filter = opts.filter
 
   return function (state, bus) {
-    var savedState = JSON.parse(window.localStorage.getItem(name))
-    mutate(state, savedState)
+    var savedState = null
+    try {
+      savedState = JSON.parse(window.localStorage.getItem(name))
+    } catch (e) {
+      savedState = {}
+    }
 
-    bus.on('*', function (eventName, data) {
-      var savedState = filter ? filter(state) : state
-      window.localStorage.setItem(name, JSON.stringify(savedState))
-    })
+    mutate(state, savedState)
+    bus.on('*', listener)
 
     bus.on('clear', function () {
-      window.localStorage.setItem(name, '{}')
-      bus.emit('log:warn', 'Wiping localStorage')
+      bus.removeListener('*', listener)
+      window.localStorage.removeItem(name)
+      bus.emit('log:warn', 'Wiping localStorage ' + name)
     })
+
+    function listener (eventName, data) {
+      var savedState = filter ? filter(state) : state
+      window.localStorage.setItem(name, JSON.stringify(savedState))
+    }
   }
 }
