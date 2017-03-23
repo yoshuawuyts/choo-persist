@@ -2,7 +2,8 @@
 [![npm version][2]][3] [![build status][4]][5]
 [![downloads][8]][9] [![js-standard-style][10]][11]
 
-Synchronize [choo][choo] state with `localStorage`
+Persist [choo][choo] state to [localStorage][mdn]. localStorage is supported
+by [all major browsers][caniuse].
 
 ## Usage
 ```js
@@ -16,12 +17,11 @@ app.use(persist())
 
 ## API
 ### `instance = persist([opts])`
-Create a new `indexedDB` database instance, and call the callback with the
-plugin when done. Can take an optional first argument of options:
-- __opts.name:__ default `'app'`; provide a name for the indexedDB database
-- __opts.filter(state):__ modify the state that's about to be written to the
-  IndexedDB database. Useful to strip values that cannot be serialized to
-  IndexedDB.
+Load the app state from `localStorage` and set up listeners to write the state
+back on every event. Can take an optional argument of options:
+- __opts.name:__ default `'choo-persist'`; the `localStorage` key.
+- __opts.filter(state):__ modify the state that's about to be saved. Useful
+  for removing values that cannot be serialized to JSON.
 
 ```js
 var xtend = require('xtend')
@@ -65,6 +65,6 @@ choo handbook. Until then: have fun I guess?
 [9]: https://npmjs.org/package/choo-persist
 [10]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
 [11]: https://github.com/feross/standard
-[caniuse]: http://caniuse.com/#feat=indexeddb
-[mdn]: https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API
+[caniuse]: http://caniuse.com/#feat=namevalue-storage
+[mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage
 [choo]: https://github.com/yoshuawuyts/choo
