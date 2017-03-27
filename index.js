@@ -21,13 +21,22 @@ function persist (opts) {
 
     bus.on('clear', function () {
       bus.removeListener('*', listener)
-      window.localStorage.removeItem(name)
+      try {
+        window.localStorage.removeItem(name)
+      } catch (e) {
+        bus.emit('log:warn', 'Coun not wipe localStorage ' + name)
+      }
       bus.emit('log:warn', 'Wiping localStorage ' + name)
     })
 
     function listener (eventName, data) {
       var savedState = filter ? filter(state) : state
-      window.localStorage.setItem(name, JSON.stringify(savedState))
+      try {
+        window.localStorage.setItem(name, JSON.stringify(savedState))
+      } catch (e) {
+        bus.removeListener('*', listener)
+        bus.emit('log:warn', 'Cound not set item to localStorage ' + name)
+      }
     }
   }
 }
