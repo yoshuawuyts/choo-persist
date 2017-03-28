@@ -23,7 +23,7 @@
     "xtend": "^4.0.1"
   },
   "devDependencies": {
-    "bankai": "^3.3.0",
+    "bankai": "^6.1.1",
     "choo": "^4.0.0-0",
     "dependency-check": "^2.6.0",
     "istanbul": "^0.4.5",
