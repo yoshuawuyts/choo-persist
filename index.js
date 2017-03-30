@@ -24,7 +24,7 @@ function persist (opts) {
       try {
         window.localStorage.removeItem(name)
       } catch (e) {
-        bus.emit('log:warn', 'Coun not wipe localStorage ' + name)
+        bus.emit('log:warn', 'Could not wipe localStorage ' + name)
       }
       bus.emit('log:warn', 'Wiping localStorage ' + name)
     })
@@ -35,7 +35,7 @@ function persist (opts) {
         window.localStorage.setItem(name, JSON.stringify(savedState))
       } catch (e) {
         bus.removeListener('*', listener)
-        bus.emit('log:warn', 'Cound not set item to localStorage ' + name)
+        bus.emit('log:warn', 'Could not set item to localStorage ' + name)
       }
     }
   }
