@@ -27,7 +27,7 @@
     "choo": "^4.0.0-0",
     "dependency-check": "^2.6.0",
     "istanbul": "^0.4.5",
-    "standard": "^8.0.0",
+    "standard": "^10.0.1",
     "tape": "^4.6.0"
   }
 }
