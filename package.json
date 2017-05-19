@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "bankai": "^3.3.0",
-    "choo": "^4.0.0-0",
+    "choo": "^5.5.0",
     "dependency-check": "^2.6.0",
     "istanbul": "^0.4.5",
     "standard": "^8.0.0",
